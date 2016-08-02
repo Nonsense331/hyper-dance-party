@@ -1,0 +1,22 @@
+{
+  "name": "hyper-dance-party",
+  "version": "1.0.0",
+  "description": "Constantly changing rainbow border and cursor!",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nonsense331/hyper-dance-party.git"
+  },
+  "keywords": [
+    "hyperterm",
+    "dance",
+    "party"
+  ],
+  "author": "Brett Samson <brettsamson@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nonsense331/hyper-dance-party/issues"
+  },
+  "homepage": "https://github.com/Nonsense331/hyper-dance-party#readme"
+}

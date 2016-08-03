@@ -25,7 +25,7 @@ module.exports = {
     .....
 
     plugins: {
-      'hyperterm-dance-party': {
+      'hyper-dance-party': {
       'rainbowColors': [
         'red',
         'white',

@@ -4,14 +4,14 @@ exports.decorateConfig = (config) => {
   var danceCursor = true;
   var extreme = false;
   const pluginConfig = config.plugins;
-  if (pluginConfig !== undefined && pluginConfig["hyperterm-dance-party"] !== undefined) {
-    colorOptions = pluginConfig["hyperterm-dance-party"]["rainbowColors"];
-    extreme = pluginConfig["hyperterm-dance-party"]["extreme"];
-    if (pluginConfig["hyperterm-dance-party"]["danceParty"] !== undefined) {
-      danceParty = pluginConfig["hyperterm-dance-party"]["danceParty"];
+  if (pluginConfig !== undefined && pluginConfig["hyper-dance-party"] !== undefined) {
+    colorOptions = pluginConfig["hyper-dance-party"]["rainbowColors"];
+    extreme = pluginConfig["hyper-dance-party"]["extreme"];
+    if (pluginConfig["hyper-dance-party"]["danceParty"] !== undefined) {
+      danceParty = pluginConfig["hyper-dance-party"]["danceParty"];
     }
-    if (pluginConfig["hyperterm-dance-party"]["danceCursor"] !== undefined) {
-      danceCursor = pluginConfig["hyperterm-dance-party"]["danceCursor"];
+    if (pluginConfig["hyper-dance-party"]["danceCursor"] !== undefined) {
+      danceCursor = pluginConfig["hyper-dance-party"]["danceCursor"];
     }
   }
   if (colorOptions === null || colorOptions === undefined) {
@@ -96,6 +96,8 @@ exports.decorateConfig = (config) => {
   });
 };
 
+var rainbowInterval = null;
+
 exports.decorateTerm = (Term, { React, notify }) => {
   return class extends React.Component {
     constructor (props, context) {
@@ -138,8 +140,8 @@ exports.decorateTerm = (Term, { React, notify }) => {
     _onCursorChange () {
       if (this._danceParty) {
         this._setDanceModeOn();
-        clearInterval(this._interval);
-        this._interval = setInterval(this._setDanceModeOff.bind(this), 500);
+        clearInterval(rainbowInterval);
+        rainbowInterval = setInterval(this._setDanceModeOff.bind(this), 500);
       }
     }
 

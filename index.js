@@ -82,23 +82,8 @@ exports.decorateConfig = (config) => {
       animation-duration: 1s;
       animation-iteration-count: infinite;
     }
-    .rainbow-beam {
+    .rainbow-transparent {
       background-color: transparent !important;
-      animation-name: rainbow-border;
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
-    }
-    .rainbow-block {
-      background-color: transparent !important;
-      animation-name: rainbow-extreme;
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
-    }
-    .rainbow-underline {
-      background-color: transparent !important;
-      animation-name: rainbow-border;
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
     }
   `
 
@@ -146,7 +131,12 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._hyperTermDiv.classList.add('rainbow-slow-border-color');
       this._cursor = term.cursorNode_;
       if (this._danceCursor) {
-        this._cursor.classList.add("rainbow-" + this._cursorShape);
+        if (this._cursorShape === "BEAM" || this._cursorShape === "UNDERLINE") {
+          this._cursor.classList.add("rainbow-fast-border-color");
+          this._cursor.classList.add("rainbow-transparent");
+        } else {
+          this._cursor.classList.add("rainbow-fast-extreme");
+        }
       }
       this._rainbowObserver = new MutationObserver(this._onCursorChange);
       this._rainbowObserver.observe(this._cursor, {

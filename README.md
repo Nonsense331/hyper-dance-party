@@ -5,8 +5,8 @@ SEIZURE WARNING: I don't know anything about seizures, but if you turn on extrem
 
 ## Install
 
-Install [HyperTerm](https://hyperterm.org)
-Add `hyper-dance-party` to the plugins list in your `~/.hyperterm.js` config file.
+Install [HyperTerm](https://hyper.js)
+Add `hyper-dance-party` to the plugins list in your `~/.hyper.js` config file.
 
 ## Configure
 
@@ -16,7 +16,7 @@ Dance party rapidly changes the border color while typing.
 Extreme mode also sets the background of the terminal to rapidly change color while typing (not recommended).
 
 ```
-$ vim ~/.hyperterm.js
+$ vim ~/.hyper.js
 module.exports = {
   config: {
     // default font size in pixels for all tabs

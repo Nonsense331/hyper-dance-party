@@ -28,11 +28,11 @@ module.exports = {
       'hyper-dance-party': {
       'rainbowColors': [
         'red',
-        'white',
-        'blue',
-        '#ff0000',
-        '#ffffff',
-        '#0000ff'
+        '#ffac00',
+        '#fff100',
+        '#fff100',
+        '#0bff00',
+        '#00f6ff'
       ],
       'extreme': false,
       'danceParty': true,

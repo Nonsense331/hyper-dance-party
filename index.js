@@ -105,7 +105,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
   return class extends React.Component {
     constructor (props, context) {
       super(props, context);
-      this._hyperTermDiv = document.getElementById('mount').children[0].getElementsByClassName('hyperterm_main')[0];
+      this._hyperDiv = document.getElementById('mount').children[0].getElementsByClassName('hyper_main')[0];
       this._onCursorChange = this._onCursorChange.bind(this);
       this._xscreenDiv = null;
       this._danceParty = config.getConfig().danceParty;
@@ -128,7 +128,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
     _rainbowOnTerminal (term) {
       if (this.props.onTerminal) this.props.onTerminal(term);
       this._xscreenDiv = term.document_.body.getElementsByTagName('x-screen')[0];
-      this._hyperTermDiv.classList.add('rainbow-slow-border-color');
+      this._hyperDiv.classList.add('rainbow-slow-border-color');
       this._cursor = term.cursorNode_;
       if (this._danceCursor) {
         if (this._cursorShape === "BEAM" || this._cursorShape === "UNDERLINE") {
@@ -155,20 +155,20 @@ exports.decorateTerm = (Term, { React, notify }) => {
     }
 
     _setDanceModeOn () {
-      this._hyperTermDiv.classList.remove('rainbow-slow-border-color');
-      this._hyperTermDiv.classList.add('rainbow-fast-border-color');
+      this._hyperDiv.classList.remove('rainbow-slow-border-color');
+      this._hyperDiv.classList.add('rainbow-fast-border-color');
       if (this._extreme === true) {
         this._xscreenDiv.classList.add('rainbow-fast-extreme');
-        this._hyperTermDiv.classList.add('rainbow-fast-extreme');
+        this._hyperDiv.classList.add('rainbow-fast-extreme');
       }
     }
 
     _setDanceModeOff () {
-      this._hyperTermDiv.classList.add('rainbow-slow-border-color');
-      this._hyperTermDiv.classList.remove('rainbow-fast-border-color');
+      this._hyperDiv.classList.add('rainbow-slow-border-color');
+      this._hyperDiv.classList.remove('rainbow-fast-border-color');
       if (this._extreme === true) {
         this._xscreenDiv.classList.remove('rainbow-fast-extreme');
-        this._hyperTermDiv.classList.remove('rainbow-fast-extreme');
+        this._hyperDiv.classList.remove('rainbow-fast-extreme');
       }
     }
   }

@@ -1,7 +1,7 @@
 {
   "name": "hyper-dance-party",
-  "version": "1.0.4",
-  "description": "Constantly changing rainbow border and cursor!",
+  "version": "1.0.5",
+  "description": "Constantly changing rainbow border!",
   "main": "index.js",
   "scripts": {},
   "repository": {

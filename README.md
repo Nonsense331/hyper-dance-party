@@ -35,8 +35,7 @@ module.exports = {
         '#00f6ff'
       ],
       'extreme': false,
-      'danceParty': true,
-      'danceCursor': true
+      'danceParty': true
     }
     }
   }

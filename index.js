@@ -57,6 +57,9 @@ exports.decorateConfig = (config) => {
         90%  {background-color: ${colorOptions[6]};border-color: ${colorOptions[6]};}
         100% {background-color: ${colorOptions[0]};border-color: ${colorOptions[0]};}
     }
+    .rainbow-main {
+      border-width: 2px;
+    }
     .rainbow-slow-color {
       animation-name: rainbow-color;
       animation-duration: 120s;
@@ -105,13 +108,15 @@ exports.decorateTerm = (Term, { React, notify }) => {
   return class extends React.Component {
     constructor (props, context) {
       super(props, context);
-      this._hyperDiv = document.getElementById('mount').children[0].getElementsByClassName('hyper_main')[0];
-      this._onCursorChange = this._onCursorChange.bind(this);
-      this._xscreenDiv = null;
+      // Since we'll be passing these functions around, we need to bind this
+      // to each.
+      this._onDecorated = this._onDecorated.bind(this);
+      this._onCursorMove = this._onCursorMove.bind(this);
       this._danceParty = config.getConfig().danceParty;
       this._danceCursor = config.getConfig().danceCursor;
       this._extreme = config.getConfig().rainbowExtreme;
-      this._cursorShape = config.getConfig().cursorShape;
+      this._div = null;
+      this._canvas = null;
       this._customCSS = `
         ${this.props.customCSS || ''}
         ${config.getConfig().rainbowCSS}
@@ -120,33 +125,37 @@ exports.decorateTerm = (Term, { React, notify }) => {
 
     render () {
       return React.createElement(Term, Object.assign({}, this.props, {
-        onTerminal: this._rainbowOnTerminal.bind(this),
+        onDecorated: this._onDecorated,
+        onCursorMove: this._onCursorMove,
         customCSS: this._customCSS
       }));
     }
 
-    _rainbowOnTerminal (term) {
-      if (this.props.onTerminal) this.props.onTerminal(term);
-      this._xscreenDiv = term.document_.body.getElementsByTagName('x-screen')[0];
+    _onDecorated (term) {
+      if (this.props._onDecorated) this.props._onDecorated(term);
+      this._div = term.termRef;
+      this._hyperDiv = document.getElementById('mount').children[0].getElementsByClassName('hyper_main')[0];
+      this._hyperDiv.classList.add('rainbow-main');
       this._hyperDiv.classList.add('rainbow-slow-border-color');
-      this._cursor = term.cursorNode_;
-      if (this._danceCursor) {
-        if (this._cursorShape === "BEAM" || this._cursorShape === "UNDERLINE") {
-          this._cursor.classList.add("rainbow-fast-border-color");
-          this._cursor.classList.add("rainbow-transparent");
-        } else {
-          this._cursor.classList.add("rainbow-fast-extreme");
-        }
-      }
-      this._rainbowObserver = new MutationObserver(this._onCursorChange);
-      this._rainbowObserver.observe(this._cursor, {
-        attributes: true,
-        childList: false,
-        characterData: false
-      });
+      // this._cursor = term.cursorNode_;
+      // if (this._danceCursor) {
+      //   if (this._cursorShape === "BEAM" || this._cursorShape === "UNDERLINE") {
+      //     this._cursor.classList.add("rainbow-fast-border-color");
+      //     this._cursor.classList.add("rainbow-transparent");
+      //   } else {
+      //     this._cursor.classList.add("rainbow-fast-extreme");
+      //   }
+      // }
+      // this._rainbowObserver = new MutationObserver(this._onCursorMove);
+      // this._rainbowObserver.observe(this._cursor, {
+      //   attributes: true,
+      //   childList: false,
+      //   characterData: false
+      // });
     }
 
-    _onCursorChange () {
+    _onCursorMove () {
+      if (this.props.onCursorMove) this.props.onCursorMove(cursorFrame);
       if (this._danceParty) {
         this._setDanceModeOn();
         clearInterval(rainbowInterval);
@@ -158,7 +167,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._hyperDiv.classList.remove('rainbow-slow-border-color');
       this._hyperDiv.classList.add('rainbow-fast-border-color');
       if (this._extreme === true) {
-        this._xscreenDiv.classList.add('rainbow-fast-extreme');
+        this._div.classList.add('rainbow-fast-extreme');
         this._hyperDiv.classList.add('rainbow-fast-extreme');
       }
     }
@@ -167,7 +176,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._hyperDiv.classList.add('rainbow-slow-border-color');
       this._hyperDiv.classList.remove('rainbow-fast-border-color');
       if (this._extreme === true) {
-        this._xscreenDiv.classList.remove('rainbow-fast-extreme');
+        this._div.classList.remove('rainbow-fast-extreme');
         this._hyperDiv.classList.remove('rainbow-fast-extreme');
       }
     }

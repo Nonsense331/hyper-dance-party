@@ -133,6 +133,9 @@ exports.decorateTerm = (Term, { React, notify }) => {
 
     _onDecorated (term) {
       if (this.props._onDecorated) this.props._onDecorated(term);
+      if (term === null) {
+        return;
+      }
       this._div = term.termRef;
       this._hyperDiv = document.getElementById('mount').children[0].getElementsByClassName('hyper_main')[0];
       this._hyperDiv.classList.add('rainbow-main');

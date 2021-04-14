@@ -5,7 +5,7 @@ SEIZURE WARNING: I don't know anything about seizures, but if you turn on extrem
 
 ## Install
 
-Install [HyperTerm](https://hyper.js)
+Install [Hyper](https://hyper.is)
 Add `hyper-dance-party` to the plugins list in your `~/.hyper.js` config file.
 
 ## Configure
